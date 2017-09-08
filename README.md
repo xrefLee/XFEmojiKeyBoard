@@ -23,11 +23,11 @@
 ***emojiArr (数据)***
 
 ```
-	@[
-		@[XFEmojiModel , XFEmojiModel , XFEmojiModel],
-		@[XFEmojiModel , XFEmojiModel , XFEmojiModel],
-		@[XFEmojiModel , XFEmojiModel , XFEmojiModel]
-	]
+@[
+	@[XFEmojiModel , XFEmojiModel , XFEmojiModel],
+	@[XFEmojiModel , XFEmojiModel , XFEmojiModel],
+	@[XFEmojiModel , XFEmojiModel , XFEmojiModel]
+]
 ```
 
 ***XFEmojiKeyBoardDelegate (代理方法)***
