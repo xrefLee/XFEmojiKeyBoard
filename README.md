@@ -8,7 +8,7 @@
 * 输入框显示自定义表情图片
 
 
-![Markdown preferences pane](https://github.com/xrefLee/XFEmojiKeyBoard/blob/master/PicSource/111.gif?raw=true) ![Markdown preferences pane](https://github.com/xrefLee/XFEmojiKeyBoard/blob/master/PicSource/222.gif?raw=true)
+![Markdown preferences pane](https://github.com/xrefLee/XFEmojiKeyBoard/blob/master/PicSource/111.gif?raw=true) ![Markdown preferences pane](https://github.com/xrefLee/XFEmojiKeyBoard/blob/master/PicSource/333.gif?raw=true)
 ### 使用:
 ```
     [[XFEmojiKeyBoard shareInstance] showInView:self.view topBarType:(XFEmojiKeyBoardTypeHideTopBar)];
