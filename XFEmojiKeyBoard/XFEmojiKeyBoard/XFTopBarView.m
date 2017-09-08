@@ -119,7 +119,7 @@
         self.danmuLabel.layer.masksToBounds = YES;
         self.danmuLabel.backgroundColor = [UIColor whiteColor];
         self.danmuLabel.textColor = [UIColor lightGrayColor];
-        self.danmuLabel.text = NSLocalizedString(@"dan_mu", nil);;
+        self.danmuLabel.text = @"弹幕";
         self.danmuLabel.font = [UIFont systemFontOfSize:13];
         self.danmuLabel.textAlignment = NSTextAlignmentCenter;
         [_danmuBtn addSubview:self.danmuLabel];

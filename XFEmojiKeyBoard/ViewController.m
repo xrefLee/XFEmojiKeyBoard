@@ -43,7 +43,7 @@
         
     }
     
-    [[XFEmojiKeyBoard shareInstance] showInView:self.view topBarType:(XFEmojiKeyBoardTypeShowTopBar)];
+    [[XFEmojiKeyBoard shareInstance] showInView:self.view topBarType:(XFEmojiKeyBoardTypeHideTopBar)];
     [XFEmojiKeyBoard shareInstance].emojiArr = tmpArr;
     [XFEmojiKeyBoard shareInstance].delegate = self;
  
@@ -54,13 +54,7 @@
     [self.view addSubview:btn];
     [btn addTarget:self action:@selector(btnAction) forControlEvents:(UIControlEventTouchUpInside)];
     
-//    UITextField *text = [[UITextField alloc]initWithFrame:CGRectMake(0, 400, 200, 40)];
-//    
-//    text.backgroundColor = [UIColor lightTextColor];
-//    [text becomeFirstResponder];
-//    text.delegate = self;
-////    text.keyboardType = UIKeyboardTypeNumberPad;
-//    [self.view addSubview:text];
+
 }
 
 - (void)btnAction{
