@@ -26,7 +26,7 @@
     NSArray *allArr = [XMNChatExpressionManager sharedManager].dataArray;
     
     NSDictionary *mapper = [XMNChatExpressionManager sharedManager].qqMapper;
-    NSMutableArray *tmpArr = [NSMutableArray array];
+    NSMutableArray *modelArr = [NSMutableArray array];
     for (NSArray *arr in allArr) {
         NSMutableArray *tmpArr11 = [NSMutableArray array];
         for (NSDictionary *dic in arr) {
@@ -39,12 +39,12 @@
             [tmpArr11 addObject:model];
         }
         
-        [tmpArr addObject:tmpArr11];
+        [modelArr addObject:tmpArr11];
         
     }
     
     [[XFEmojiKeyBoard shareInstance] showInView:self.view topBarType:(XFEmojiKeyBoardTypeHideTopBar)];
-    [XFEmojiKeyBoard shareInstance].emojiArr = tmpArr;
+    [XFEmojiKeyBoard shareInstance].emojiArr = modelArr;
     [XFEmojiKeyBoard shareInstance].delegate = self;
  
     

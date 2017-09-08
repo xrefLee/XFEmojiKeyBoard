@@ -39,7 +39,7 @@ typedef NS_ENUM(NSUInteger, XFEmojiKeyBoardStatusType) {
 
 @interface XFEmojiKeyBoard : UIView
 
-@property (nonatomic, strong) NSArray *emojiArr;
+@property (nonatomic, strong) NSArray<XFEmojiModel *> *emojiArr;
 
 @property (nonatomic, strong) SZTextView *textView;
 

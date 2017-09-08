@@ -11,9 +11,12 @@
 
 @interface XFEmojiModel : NSObject
 
+/// 表情字符串  /惊讶
 @property (nonatomic, strong) NSString *emojiStr;
+/// 对应的图片名称
 @property (nonatomic, strong) NSString *imageName;
+/// 对应的 image
 @property (nonatomic, strong) UIImage *image;
-@property (nonatomic, assign) BOOL isDele;
+
 
 @end
