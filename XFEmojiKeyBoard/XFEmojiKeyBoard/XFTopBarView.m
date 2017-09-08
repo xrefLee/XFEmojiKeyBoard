@@ -58,14 +58,14 @@
 
 - (void)danmuBtnAction:(UIButton *)sender{
     if (!sender.isSelected) {
-        self.danmuLabel.textColor = [UIColor whiteColor];
-        self.danmuBtn.backgroundColor = [UIColor redColor];
+        self.danmuLabel.textColor = [UIColor cyanColor];
+        self.danmuBtn.backgroundColor = [UIColor cyanColor];
         [UIView beginAnimations:nil context:NULL];
         [UIView setAnimationDuration:0.2];
         self.danmuLabel.left = self.danmuBtn.width-self.danmuLabel.width - 2;
         [UIView commitAnimations];
+        self.textView.placeholder = @"弹幕状态~说点什么吧";
         
-        //        _chatTextField.placeholder = NSLocalizedString(@"Turn on the big horn, 10 stars currency / bar",nil);
     }else{
         self.danmuLabel.textColor = [UIColor lightGrayColor];
         self.danmuBtn.backgroundColor = [UIColor lightGrayColor];
@@ -73,8 +73,8 @@
         [UIView setAnimationDuration:0.2];
         self.danmuLabel.left = 2;
         [UIView commitAnimations];
+        self.textView.placeholder = @"说点什么吧";
         
-        //        _chatTextField.placeholder = NSLocalizedString(@"Say something to everyone",nil);
     }
     sender.selected = !sender.selected;
     
@@ -109,7 +109,7 @@
     if (!_danmuBtn) {
         _danmuBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
         _danmuBtn.frame = CGRectMake(5, 0, 45,  5);
-        _danmuBtn.backgroundColor = [UIColor redColor];
+        _danmuBtn.backgroundColor = [UIColor lightGrayColor];
         _danmuBtn.layer.cornerRadius = 3;
         _danmuBtn.layer.masksToBounds = YES;
         
@@ -138,7 +138,7 @@
         _textView.layer.borderWidth = 0.5f;
         _textView.layer.borderColor = [UIColor lightGrayColor].CGColor;
         _textView.scrollEnabled = YES;
-        
+        self.textView.placeholder = @"说点什么吧";
         _textView.delegate = self;
         _textView.font = [UIFont systemFontOfSize:17.0f];
 

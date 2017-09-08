@@ -46,7 +46,6 @@ static XFEmojiKeyBoard *keyBord = nil;
 - (void)showInView:(UIView *)view topBarType:(XFEmojiKeyBoardType)topBarType{
     
     self.topBarType = topBarType;
-//    XFEmojiKeyBoard *new = [XFEmojiKeyBoard shareInstance];
     self.showInView = view;
     [view addSubview:self];
     
@@ -54,15 +53,9 @@ static XFEmojiKeyBoard *keyBord = nil;
     
     if (topBarType == XFEmojiKeyBoardTypeHideTopBar) {
         self.top = view.bottom;
-//        self.top = kScreenH;
     }else{
         self.top = view.bottom - topBarHeight;
-//        self.top = kScreenH - topBarHeight;
     }
-    
-    
-    
-    
     
 }
 
@@ -93,10 +86,6 @@ static XFEmojiKeyBoard *keyBord = nil;
         wself.keyBoardView.top = wself.topBarView.bottom;
         wself.bottom = wself.showInView.bottom;
     }];
-    
-    
-    
-    
 }
 
 
@@ -116,10 +105,7 @@ static XFEmojiKeyBoard *keyBord = nil;
     }else{
         
         [self.textView becomeFirstResponder];
-//        [self handleHide];
     }
-    
-    
 }
 
 - (void)danMuBtnIsSelect:(BOOL)isSelect{
@@ -136,11 +122,7 @@ static XFEmojiKeyBoard *keyBord = nil;
     emojiTextAttachment.emojiStr = emojiModel.emojiStr;
     emojiTextAttachment.image = image;
     // 给附件设置尺寸
-    
     CGFloat emojiHeigth = [self heightWithFont:self.textView.font];
-    
-    
-    
     emojiTextAttachment.bounds = CGRectMake(0, -4, emojiHeigth, emojiHeigth);
     //textview插入富文本，用创建的附件初始化富文本
     [self.textView.textStorage insertAttributedString:[NSAttributedString attributedStringWithAttachment:emojiTextAttachment] atIndex:self.textView.selectedRange.location];
@@ -169,8 +151,6 @@ static XFEmojiKeyBoard *keyBord = nil;
     NSRange wholeRange = NSMakeRange(0, self.textView.textStorage.length);
     [self.textView.textStorage removeAttribute:NSFontAttributeName range:wholeRange];
     [self.textView.textStorage addAttribute:NSFontAttributeName value:_textViewFont range:wholeRange];
-    
-    
     [self.textView scrollRectToVisible:CGRectMake(0, 0, self.textView.contentSize.width, self.textView.contentSize.height) animated:NO];
 
     //重新设置输入框视图的frame
@@ -202,6 +182,9 @@ static XFEmojiKeyBoard *keyBord = nil;
 }
 
 - (void)keyBoardWillShow:(NSNotification *)noti {
+    if (!self.textView.isFirstResponder) {
+        return;
+    }
     
     NSDictionary *userInfo = noti.userInfo;
     NSValue *beginValue    = [userInfo objectForKey:UIKeyboardFrameBeginUserInfoKey];
@@ -222,7 +205,6 @@ static XFEmojiKeyBoard *keyBord = nil;
 
 - (void)keyBoardWillHide:(NSNotification *)noti {
     
-
     if (_topBarBtn.selected) {
         [self handleHide];
     }else{
@@ -236,7 +218,6 @@ static XFEmojiKeyBoard *keyBord = nil;
     if (_topBarBtn) {
         _topBarBtn.selected = NO;
     }
-    
     
     [UIView animateWithDuration:XFKeyBoardTipTime animations:^{
         self.top = kScreenH - frame.size.height - self.topBarView.height;
@@ -260,7 +241,6 @@ static XFEmojiKeyBoard *keyBord = nil;
 }
 
 - (void)hideKeyBoard {
-//    _isShow = NO;
     if (self.textView.isFirstResponder) {
         [self.textView resignFirstResponder];
     }
@@ -269,31 +249,23 @@ static XFEmojiKeyBoard *keyBord = nil;
     }
     
     [UIView animateWithDuration:0.1 animations:^{
-   
         if (self.topBarType == XFEmojiKeyBoardTypeShowTopBar) {
             self.top = self.showInView.height - self.topBarView.height;
         }else{
             self.top = self.showInView.height;
         }
-        
-        
     }];
-    
     [self keyBoardChangeStatus:XFEmojiKeyBoardHide];
-    
 }
 
 
 - (void)keyBoardChangeStatus:(XFEmojiKeyBoardStatusType)status{
-    
     if ([self.delegate respondsToSelector:@selector(changeKeyBoardStatus:)]) {
         [self.delegate changeKeyBoardStatus:status];
     }
-    
 }
 
 - (CGFloat)heightWithFont:(UIFont *)font {
-    
     if (!font){font = [UIFont systemFontOfSize:17];}
     NSDictionary *dict = @{NSFontAttributeName:font};
     CGSize maxsize = CGSizeMake(100, MAXFLOAT);

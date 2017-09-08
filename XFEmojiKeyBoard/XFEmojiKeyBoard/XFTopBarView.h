@@ -20,10 +20,6 @@
  */
 - (void)sendAction;
 /*
- * 键盘改变刷新父视图
- */
-- (void)needUpdateSuperView;
-/*
  * 弹幕按钮点击切换状态
  */
 - (void)danMuBtnIsSelect:(BOOL)isSelect;
