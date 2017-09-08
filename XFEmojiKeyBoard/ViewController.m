@@ -43,7 +43,7 @@
         
     }
     
-    [[XFEmojiKeyBoard shareInstance] showInView:self.view topBarType:(XFEmojiKeyBoardTypeShowTopBar)];
+    [[XFEmojiKeyBoard shareInstance] showInView:self.view topBarType:(XFEmojiKeyBoardTypeHideTopBar)];
     [XFEmojiKeyBoard shareInstance].emojiArr = modelArr;
     [XFEmojiKeyBoard shareInstance].delegate = self;
  
