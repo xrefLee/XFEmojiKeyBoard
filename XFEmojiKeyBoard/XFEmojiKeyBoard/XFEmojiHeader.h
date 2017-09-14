@@ -16,6 +16,13 @@
 
 #define UIColorRandom [UIColor colorWithRed:arc4random_uniform(255)/255.0 green:arc4random_uniform(255)/255.0 blue:arc4random_uniform(255)/255.0 alpha:1]
 
+struct XFCount {
+    int numOfRow;
+    int rowCount;
+};
+
+typedef struct XFCount XFCount;
+
 /*topbar*/
 //输入框的高度
 static CGFloat const XFTextViewH = 35;
@@ -39,13 +46,15 @@ static CGFloat const XFKeyBoardTipTime = 0.3;
 
 #define itemW kScreenW * 0.0875
 
-#define itemSpace (kScreenW - (itemW * XFKrowCount))/(XFKrowCount + 1)
+//#define itemSpace (kScreenW - (itemW * XFKrowCount))/(XFKrowCount + 1)
+#define itemSpace 20*[[UIScreen mainScreen] bounds].size.width/375
 
+#define caclutaItemSpace(itW,lineCount) (kScreenW - (itW * lineCount))/(lineCount + 1)
 
 #define keyBoardViewH itemW * XFRows + itemSpace * (XFRows + 1)
 
-#define pageControlH 20
-#define bottomBarH 40
+#define pageControlH 20*[[UIScreen mainScreen] bounds].size.width/375
+#define bottomBarH 40*[[UIScreen mainScreen] bounds].size.width/375
 
 //表情按钮宽高
 /*颜色*/

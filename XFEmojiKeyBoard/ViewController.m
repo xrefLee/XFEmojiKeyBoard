@@ -43,10 +43,29 @@
         
     }
     
+//    NSValue *customValue = [NSValue valueWithBytes:&tmpTest objCType:@encode(struct Test)];
+//    //    取出数据
+//    Test tmpTest1;
+//    [customValue getValue:&tmpTest1];
+//    NSLog(@"id==%d,height==%f",tmpTest1.ID,tmpTest1.height);
+    XFCount gourpCount;
+    gourpCount.numOfRow = 7;
+    gourpCount.rowCount = 3;
+    XFCount gourpCount1;
+    gourpCount1.numOfRow = 4;
+    gourpCount1.rowCount = 3;
+    
+    NSValue *group = [NSValue valueWithBytes:&gourpCount objCType:@encode(struct XFCount)];
+    NSValue *group1 = [NSValue valueWithBytes:&gourpCount1 objCType:@encode(struct XFCount)];
+    
+    NSArray *numOfPageCount = @[group,group,group1];
+    
     [[XFEmojiKeyBoard shareInstance] showInView:self.view topBarType:(XFEmojiKeyBoardTypeHideTopBar)];
+    [XFEmojiKeyBoard shareInstance].customCountArr = numOfPageCount;
     [XFEmojiKeyBoard shareInstance].emojiArr = modelArr;
     [XFEmojiKeyBoard shareInstance].delegate = self;
  
+    
     
     UIButton *btn = [UIButton buttonWithType:(UIButtonTypeCustom)];
     btn.frame = CGRectMake(10, 10, 100, 100);

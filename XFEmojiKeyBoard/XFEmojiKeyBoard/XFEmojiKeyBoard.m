@@ -95,6 +95,12 @@ static XFEmojiKeyBoard *keyBord = nil;
 }
 
 
+- (void)setCustomCountArr:(NSArray *)customCountArr{
+    _customCountArr = customCountArr;
+    self.keyBoardView.customCountArr = customCountArr;
+}
+
+
 #pragma mark -----XFTopBarViewDelegate
 - (void)topBarEmotionBtnClicked:(UIButton *)sender{
     _topBarBtn = sender;

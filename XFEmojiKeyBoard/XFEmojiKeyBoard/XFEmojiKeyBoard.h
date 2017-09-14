@@ -23,6 +23,7 @@ typedef NS_ENUM(NSUInteger, XFEmojiKeyBoardStatusType) {
 };
 
 
+
 @protocol XFEmojiKeyBoardDelegate <NSObject>
 
 /// 发送按钮点击代理方法
@@ -39,7 +40,32 @@ typedef NS_ENUM(NSUInteger, XFEmojiKeyBoardStatusType) {
 
 @interface XFEmojiKeyBoard : UIView
 
+
+/**
+ 表情分组数组
+ eg：
+ NSArray *emojiArr = @[ @[XFEmojiModel,XFEmojiModel,XFEmojiModel],
+                        @[XFEmojiModel,XFEmojiModel],
+                        @[XFEmojiModel,XFEmojiModel]
+                      ];
+ */
 @property (nonatomic, strong) NSArray<XFEmojiModel *> *emojiArr;
+
+/**
+ 定义每个分组的 ，每行的item个数，和行数
+ eg：
+ XFCount gourpCount;
+ gourpCount.numOfRow = 7;
+ gourpCount.rowCount = 3;
+ XFCount gourpCount1;
+ gourpCount1.numOfRow = 3;
+ gourpCount1.rowCount = 3;
+ NSValue *group = [NSValue valueWithBytes:&gourpCount objCType:@encode(struct XFCount)];
+ NSValue *group1 = [NSValue valueWithBytes:&gourpCount1 objCType:@encode(struct XFCount)];
+ NSArray *customCountArr = @[group,group,group1];
+ 
+ */
+@property (nonatomic, strong) NSArray<NSValue *> *customCountArr;
 
 @property (nonatomic, strong) SZTextView *textView;
 

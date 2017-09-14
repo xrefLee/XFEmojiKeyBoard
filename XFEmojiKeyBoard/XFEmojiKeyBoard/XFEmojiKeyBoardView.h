@@ -24,5 +24,5 @@
 @property (nonatomic, weak) id<XFEmojiKeyBoardViewDelegate> delegate;
 
 @property (nonatomic, strong) NSArray *dataArr;
-
+@property (nonatomic, strong) NSArray *customCountArr;
 @end

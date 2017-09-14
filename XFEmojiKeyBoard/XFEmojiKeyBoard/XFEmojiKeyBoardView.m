@@ -14,6 +14,7 @@
 #import "XFEmojiCell.h"
 //#import "CALayer+YYAdd.h"
 #import "XFBottomBarView.h"
+#import "XFKeyBoardDeleCell.h"
 
 @interface XFEmojiKeyBoardView ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>{
     NSUInteger _group;
@@ -22,7 +23,9 @@
     NSMutableArray *_allDataArr;
     int _emoticonGroupTotalPageCount;
     NSArray *_emoticonGroupPageIndexs;
-    
+    NSMutableArray *_sectionCount;
+    NSMutableArray *_sizeValueArr;
+    NSMutableArray *_sectionInset_itemSpace;
     
 }
 @property (nonatomic, strong) UICollectionView *mainCollectionView;
@@ -70,9 +73,7 @@
     };
     
     [self.bottomBarView.sendBtn addTarget:self action:@selector(sendBtnAction) forControlEvents:(UIControlEventTouchUpInside)];
-    
-    
-    
+  
 }
 
 - (void)sendBtnAction{
@@ -81,47 +82,50 @@
     }
 }
 
+- (void)setCustomCountArr:(NSArray *)customCountArr{
+    _customCountArr = customCountArr;
+}
+
 - (void)setDataArr:(NSArray *)dataArr{
     _dataArr = dataArr;
     _group = dataArr.count;
-    
-    
     _allDataArr = [NSMutableArray array];
     _changeGropPageCount = [NSMutableArray array];
     _everyGroupPageCount = [NSMutableArray array];
-
+    _sectionCount = [NSMutableArray array];
+    _sizeValueArr = [NSMutableArray array];
+    _sectionInset_itemSpace = [NSMutableArray array];
     NSMutableArray *bottomImageArr = [NSMutableArray array];
     
     NSMutableArray *indexs = [NSMutableArray new];
     NSUInteger index = 0;
-    for (NSArray *arr in dataArr) {
-        XFEmojiModel *model = arr[0];
-        [bottomImageArr addObject:model.image];
-        
-        [indexs addObject:@(index)];
-        NSUInteger count = ceil(arr.count / kOnePageCount);
-        if (count == 0) count = 1;
-        index += count;
-    }
-    _emoticonGroupPageIndexs = indexs;
-    
     NSMutableArray *pageCounts = [NSMutableArray new];
     _emoticonGroupTotalPageCount = 0;
-    for (NSArray *arr in dataArr) {
-        NSUInteger pageCount = ceil(arr.count / (float)kOnePageCount);
-        if (pageCount == 0) pageCount = 1;
-        [pageCounts addObject:@(pageCount)];
-        _emoticonGroupTotalPageCount += pageCount;
-        
-
+    for (int i = 0; i<dataArr.count; i++) {
+        NSArray *arr = dataArr[i];
+        NSValue *customValue = self.customCountArr[i];
+        XFCount customCount;
+        [customValue getValue:&customCount];
+        int pagCount = customCount.numOfRow * customCount.rowCount;
+        XFEmojiModel *model = arr[0];
+        CGFloat width = (kScreenW - (customCount.numOfRow + 1)*itemSpace)/customCount.numOfRow;
+        CGFloat height = (self.mainCollectionView.height - (customCount.rowCount + 1)*itemSpace)/customCount.rowCount;
+        [bottomImageArr addObject:model.image];
+        [indexs addObject:@(index)];
+        NSUInteger count = ceil(arr.count / (float)(pagCount - 1));
+        if (count == 0) count = 1;
+        index += count;
+        [pageCounts addObject:@(count)];
+        for (int i = 0; i<count; i++) {
+            [_sectionCount addObject:@(pagCount)];
+            [_sizeValueArr addObject:[NSValue valueWithCGSize:CGSizeMake(width, height)]];
+        }
+        _emoticonGroupTotalPageCount += count;
     }
-//    _emoticonGroupPageCounts = pageCounts;
+    _emoticonGroupPageIndexs = indexs;
     _emoticonGroupPageCounts = pageCounts;
-    
     [self.mainCollectionView reloadData];
     [self scrollViewDidScroll:self.mainCollectionView];
-
-    
     self.bottomBarView.dataArr = bottomImageArr;
     
 }
@@ -132,18 +136,21 @@
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    return kOnePageCount + 1;
-    
+    NSNumber *num = _sectionCount[section];
+    return num.integerValue;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     
     XFEmojiCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"XFEmojiCell" forIndexPath:indexPath];
-    
     XFEmojiModel *model = [self _emoticonForIndexPath:indexPath];
-    
-    if (indexPath.row == kOnePageCount) {
-        cell.emojiImageView.image = [UIImage imageNamed:@"expression_delete"];
+    NSNumber *num = _sectionCount[indexPath.section];
+    if (indexPath.row == num.intValue - 1) {
+        XFKeyBoardDeleCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"XFKeyBoardDeleCell" forIndexPath:indexPath];
+        cell.deleImageView.image = [UIImage imageNamed:@"expression_delete"];
+        cell.imageWidth.constant = itemW;
+        cell.imageHeigth.constant = itemW;
+        return cell;
 
     }else{
         cell.emojiImageView.image = model.image;
@@ -153,50 +160,49 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    
-    if (indexPath.row == kOnePageCount) {
+    NSNumber *num = _sectionCount[indexPath.section];
+    if (indexPath.row == num.intValue - 1) {
         if ([self.delegate respondsToSelector:@selector(deletAction)]) {
             [self.delegate deletAction];
         }
-        
-        
     }else{
         XFEmojiModel *model = [self _emoticonForIndexPath:indexPath];
         NSLog(@"%@",model.emojiStr);
+        if (!model) {
+            return;
+        }
         if ([self.delegate respondsToSelector:@selector(insertEmoji:)]) {
             [self.delegate insertEmoji:model];
         }
     }
-    
-
-    
-    
 }
 //
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
-//    XFEmojiModel *model = [self _emoticonForIndexPath:indexPath];
-//    CGFloat width = itemW/model.image.size.height * model.image.size.width;
-//    if (!model) {
-//        return CGSizeMake(itemW, itemW);
-//    }
-//    return CGSizeMake(width, itemW);
-    return CGSizeMake(itemW, itemW);
+    NSValue *itemV = _sizeValueArr[indexPath.section];
+    return itemV.CGSizeValue;
 }
+
 
 - (XFEmojiModel *)_emoticonForIndexPath:(NSIndexPath *)indexPath {
     NSUInteger section = indexPath.section;
     for (NSInteger i = _emoticonGroupPageIndexs.count - 1; i >= 0; i--) {
         NSNumber *pageIndex = _emoticonGroupPageIndexs[i];
         if (section >= pageIndex.unsignedIntegerValue) {
+            NSValue *customValue = self.customCountArr[i];
+            XFCount customCount;
+            [customValue getValue:&customCount];
+            
+            int pagCount = customCount.numOfRow * customCount.rowCount - 1;
+            
             NSArray *group = self.dataArr[i];
             NSUInteger page = section - pageIndex.unsignedIntegerValue;
-            NSUInteger index = page * kOnePageCount + indexPath.row;
+            NSUInteger index = page * pagCount + indexPath.row;
 
             // transpose line/row
-            NSUInteger ip = index / kOnePageCount;
-            NSUInteger ii = index % kOnePageCount;
-            NSUInteger reIndex = (ii % 3) * 7 + (ii / 3);
-            index = reIndex + ip * kOnePageCount;
+            NSUInteger ip = index / pagCount;
+            NSUInteger ii = index % pagCount;
+            NSUInteger reIndex = (ii % customCount.rowCount) * customCount.numOfRow + (ii / customCount.rowCount);
+            index = reIndex + ip * pagCount;
 
             if (index < group.count) {
                 return group[index];
@@ -207,8 +213,6 @@
     }
     return nil;
 }
-
-
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
     NSInteger page = round(scrollView.contentOffset.x / scrollView.width);
@@ -228,13 +232,10 @@
             break;
         }
     }
-    
-    
     [_pageControl removeAllSubviews];
     CGFloat padding = 5, width = 6, height = 2;
     CGFloat pageControlWidth = (width + 2 * padding) * curGroupPageCount;
     for (NSInteger i = 0; i < curGroupPageCount; i++) {
-//        CALayer *layer = [CALayer layer];
         UIView *layer = [UIView new];
         layer.size = CGSizeMake(width, height);
         layer.layer.cornerRadius = 1;
@@ -294,6 +295,7 @@
         [_mainCollectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"UICollectionViewCell"];
         
         [_mainCollectionView registerNib:[UINib nibWithNibName:@"XFEmojiCell" bundle:nil] forCellWithReuseIdentifier:@"XFEmojiCell"];
+        [_mainCollectionView registerNib:[UINib nibWithNibName:@"XFKeyBoardDeleCell" bundle:nil] forCellWithReuseIdentifier:@"XFKeyBoardDeleCell"];
         
         _mainCollectionView.backgroundColor = [UIColor whiteColor];
         _mainCollectionView.pagingEnabled = YES;

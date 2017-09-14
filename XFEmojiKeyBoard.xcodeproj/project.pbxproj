@@ -74,6 +74,8 @@
 		792C2D321F59536100A62826 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 792C2D301F59536100A62826 /* libsqlite3.0.tbd */; };
 		792C2D331F59536100A62826 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 792C2D311F59536100A62826 /* libsqlite3.tbd */; };
 		792C2D351F59536800A62826 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 792C2D341F59536800A62826 /* libz.tbd */; };
+		798909FB1F6A2838006F39B6 /* XFKeyBoardDeleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 798909F91F6A2838006F39B6 /* XFKeyBoardDeleCell.m */; };
+		798909FC1F6A2838006F39B6 /* XFKeyBoardDeleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 798909FA1F6A2838006F39B6 /* XFKeyBoardDeleCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -206,6 +208,9 @@
 		792C2D301F59536100A62826 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
 		792C2D311F59536100A62826 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		792C2D341F59536800A62826 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		798909F81F6A2838006F39B6 /* XFKeyBoardDeleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XFKeyBoardDeleCell.h; sourceTree = "<group>"; };
+		798909F91F6A2838006F39B6 /* XFKeyBoardDeleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XFKeyBoardDeleCell.m; sourceTree = "<group>"; };
+		798909FA1F6A2838006F39B6 /* XFKeyBoardDeleCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XFKeyBoardDeleCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -234,6 +239,9 @@
 				7925724B1F5E988A009B4773 /* XFEmojiCell.h */,
 				7925724C1F5E988A009B4773 /* XFEmojiCell.m */,
 				7925724D1F5E988A009B4773 /* XFEmojiCell.xib */,
+				798909F81F6A2838006F39B6 /* XFKeyBoardDeleCell.h */,
+				798909F91F6A2838006F39B6 /* XFKeyBoardDeleCell.m */,
+				798909FA1F6A2838006F39B6 /* XFKeyBoardDeleCell.xib */,
 				7925724E1F5E988A009B4773 /* XFEmojiFlowLayout.h */,
 				7925724F1F5E988A009B4773 /* XFEmojiFlowLayout.m */,
 				792572501F5E988A009B4773 /* XFEmojiHeader.h */,
@@ -538,6 +546,7 @@
 				792572601F5E988A009B4773 /* XFEmojiCell.xib in Resources */,
 				792C2C7E1F58F30A00A62826 /* LaunchScreen.storyboard in Resources */,
 				7925725D1F5E988A009B4773 /* XFBottomBarCell.xib in Resources */,
+				798909FC1F6A2838006F39B6 /* XFKeyBoardDeleCell.xib in Resources */,
 				792C2C7B1F58F30A00A62826 /* Assets.xcassets in Resources */,
 				792C2C791F58F30A00A62826 /* Main.storyboard in Resources */,
 				792C2D021F59512300A62826 /* FaceIcon.bundle in Resources */,
@@ -603,6 +612,7 @@
 				792572621F5E988A009B4773 /* XFEmojiKeyBoard.m in Sources */,
 				792C2D151F59512300A62826 /* UIPasteboard+YYText.m in Sources */,
 				792C2D211F59512300A62826 /* _YYWebImageSetter.m in Sources */,
+				798909FB1F6A2838006F39B6 /* XFKeyBoardDeleCell.m in Sources */,
 				792C2D1A1F59512300A62826 /* YYTextWeakProxy.m in Sources */,
 				792572661F5E988A009B4773 /* XFTopBarView.m in Sources */,
 				792C2D1D1F59512300A62826 /* YYCache.m in Sources */,
